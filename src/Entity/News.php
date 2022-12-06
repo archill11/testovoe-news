@@ -6,10 +6,11 @@ use App\Repository\NewsRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ManagerRegistry;
 
-// #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
 class News {
+
 
   #[ORM\Id]
   #[ORM\GeneratedValue]
@@ -26,7 +27,7 @@ class News {
 
 
   #[ORM\Column(length: 1500)]
-  private ?string $poscription = null;
+  private ?string $description = null;
 
 
   #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
@@ -37,8 +38,12 @@ class News {
   private ?\DateTimeImmutable $published_at = null;
 
 
-  public function __construct() {
+  public function __construct($title, $announcement, $description, $tags) {
     $this->published_at = new DateTimeImmutable();
+    $this->title = $title;
+    $this->announcement = $announcement;
+    $this->description = $description;
+    $this->tags = $tags;
   }
 
   public function getId(): ?int {
@@ -65,12 +70,12 @@ class News {
     return $this;
   }
 
-  public function getPoscription(): ?string {
-    return $this->poscription;
+  public function getDescription(): ?string {
+    return $this->description;
   }
 
-  public function setPoscription(string $poscription): self {
-    $this->poscription = $poscription;
+  public function setDescription(string $description): self {
+    $this->description = $description;
 
     return $this;
   }
