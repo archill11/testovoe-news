@@ -25,36 +25,12 @@ class NewsRepository extends ServiceEntityRepository {
   }
 
   public function remove(News $entity): void {
-    $this->getEntityManager()->remove($entity);
-    $this->getEntityManager()->flush();
+    $this->getEntityManager()->remove($entity); // сохранить $entity
+    $this->getEntityManager()->flush(); // выполнить команду к БД
   }
 
   public function findById(int $id): News {
-    return $this->find($id) ;
+    return $this->find($id) ; // найти $entity
   }
 
-  //    /**
-  //     * @return News[] Returns an array of News objects
-  //     */
-  //    public function findByExampleField($value): array
-  //    {
-  //        return $this->createQueryBuilder('n')
-  //            ->andWhere('n.exampleField = :val')
-  //            ->setParameter('val', $value)
-  //            ->orderBy('n.id', 'ASC')
-  //            ->setMaxResults(10)
-  //            ->getQuery()
-  //            ->getResult()
-  //        ;
-  //    }
-
-  //    public function findOneBySomeField($value): ?News
-  //    {
-  //        return $this->createQueryBuilder('n')
-  //            ->andWhere('n.exampleField = :val')
-  //            ->setParameter('val', $value)
-  //            ->getQuery()
-  //            ->getOneOrNullResult()
-  //        ;
-  //    }
 }
