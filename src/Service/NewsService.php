@@ -23,17 +23,17 @@ class NewsService {
 
   public function delete($id): void {
 
-    if (!$this->newsRepository->existsById($id)) {
+    if (!$this->newsRepository->existsById($id)) { // проверяем новости с таким id еще не создано 
       throw new NewsNotFoundException();
     }
-    
+
     $news = $this->newsRepository->findById($id); // нахожу нужную новость по id 
     $this->newsRepository->remove($news); // удаляю найденую новость
   }
 
   public function show($id): News {
 
-    if (!$this->newsRepository->existsById($id)) {
+    if (!$this->newsRepository->existsById($id)) { // проверяем новости с таким id еще не создано 
       throw new NewsNotFoundException();
     }
 
