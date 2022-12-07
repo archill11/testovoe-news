@@ -6,7 +6,6 @@ use App\Service\NewsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class NewsController extends AbstractController {
   public function __construct(private NewsService $newsService) {} // инжектируем сервис в контроллер
@@ -41,14 +40,12 @@ class NewsController extends AbstractController {
 
     $news = $this->newsService->show($newsId);
 
-    return new Response(
-      '<html><body>
-        <h1>'.$news->getTitle().'</h1>
-        <h2>'.$news->getAnnouncement().'</h2>
-        <h3>'.$news->getDescription().'</h3>
-        <h4>'.implode(", ", ($news->getTags())).'</h4>
-      </body></html>'
-    );
+    return $this->render('NewsTemplate.html.twig', [
+      'title' => $news->getTitle(),
+      'announcement' => $news->getAnnouncement(),
+      'description' => $news->getDescription(),
+      'tags' => implode(", ", ($news->getTags()))
+    ]);
   }
 
 }
