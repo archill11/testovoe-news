@@ -33,4 +33,8 @@ class NewsRepository extends ServiceEntityRepository {
     return $this->find($id) ; // найти $entity
   }
 
+  public function existsById(int $id): bool {
+    return $this->find($id) !== null;
+  }
+
 }
