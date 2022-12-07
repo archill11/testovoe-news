@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\News;
+use App\Service\NewsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,16 +15,11 @@ class NewsController extends AbstractController {
 
   #[Route(path: '/create', methods: ['POST'])]
   public function createNews(Request $request) {
-    
+
     $post_data = json_decode($request->getContent(), true);
 
-    $news = new News(
-        $post_data['title'],
-        $post_data['announcement'],
-        $post_data['description'],
-        $post_data['tags']
-    );
-    $this->newsService->create($news);
+
+    $this->newsService->create($post_data);
 
     return $this->json("sucсess");
   }
