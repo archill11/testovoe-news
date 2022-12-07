@@ -25,4 +25,11 @@ class NewsService {
     );
     $this->subscriberRepository->save($news);
   }
+
+  public function delete($id): void {
+    $news = $this->subscriberRepository->findById($id);
+    $this->subscriberRepository->remove($news);
+  }
+
+
 }

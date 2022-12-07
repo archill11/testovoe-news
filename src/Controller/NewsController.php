@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 class NewsController extends AbstractController {
-  public function __construct(private NewsService $newsService) {}
+  public function __construct(private NewsService $newsService) {} // инжектируем сервис в контроллер
 
 
   #[Route(path: '/create', methods: ['POST'])]
@@ -18,9 +18,18 @@ class NewsController extends AbstractController {
 
     $post_data = json_decode($request->getContent(), true);
 
-
     $this->newsService->create($post_data);
 
     return $this->json("sucсess");
   }
+
+
+  #[Route(path: '/delete/{newsId}', methods: ['GET'])]
+  public function deleteNews(int $newsId) {
+
+    $this->newsService->delete($newsId);
+
+    return $this->json("news was sucсess removed");
+  }
+
 }
