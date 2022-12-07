@@ -24,8 +24,10 @@ class NewsController extends AbstractController {
   }
 
 
-  #[Route(path: '/delete/{newsId}', methods: ['GET'])]
-  public function deleteNews(int $newsId) {
+  #[Route(path: '/delete', methods: ['GET'])]
+  public function deleteNews(Request $request) {
+    
+    $newsId = $request->query->get('id');
 
     $this->newsService->delete($newsId);
 
